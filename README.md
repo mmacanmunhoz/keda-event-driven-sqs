@@ -1,3 +1,5 @@
+![alt text](https://craftech.io/blog/wp-content/uploads/2022/02/keda-sqs.drawio.png)
+
 ### After Execution Terraform, Follow Step by Step
 
 ### (Step 1) Update KubeConfig
@@ -53,7 +55,7 @@ done
 - kubectl get pods -w
 
 
-## Info Terrafor
+## TERRAFORM
 
 ### Requirements
 
