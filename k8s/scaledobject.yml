@@ -1,0 +1,19 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: aws-sqs-queue-scaledobject
+  namespace: default
+spec:
+  scaleTargetRef:
+    name: nginx-deployment
+  minReplicaCount: 0
+  maxReplicaCount: 5
+  pollingInterval: 5  # timer to call sqs
+  cooldownPeriod:  25 # timer to sleep before scale down
+  triggers:
+  - type: aws-sqs-queue
+    metadata:
+      queueURL: ""
+      queueLength: "10" # how many message scale up one pod
+      awsRegion: "us-east-2"
+      identityOwner: operator
