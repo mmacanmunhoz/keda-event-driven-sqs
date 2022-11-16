@@ -6,11 +6,11 @@
 
 ### 1 - Update KubeConfig
 
-- aws eks update-kubeconfig --name '<Eks Cluster Name>' --region '<Region>'
+- aws eks update-kubeconfig --name "cluster-name" --region "aws-region"
 
 ### 2 - Create Policy IAM For SQS (Add ARN Your Queue)
 
-- aws iam create-policy --policy-name '<Name Policy>' --policy-document file://policy/sqs.json
+- aws iam create-policy --policy-name "name-policy" --policy-document file://policy/sqs.json
 
 ### 3 - Create Namespace for KEDA
 
@@ -18,7 +18,7 @@
 
 ### 4 - Create ServiceAccount for Operator Queda Access SQS
 
-- eksctl create iamserviceaccount --name keda-operator --namespace keda --cluster '<Eks Cluster Name>' --attach-policy-arn '<Arn Policy>' --region '<Region>' --approve
+- eksctl create iamserviceaccount --name keda-operator --namespace keda --cluster "cluster-name" --attach-policy-arn "arn-policy" --region "aws-region" --approve
 
 ### 5 - Deploy KEDA
 
@@ -36,12 +36,12 @@
 
 ### 8 - Monitoring Operator Keda
 
-- kubectl logs -f '<Name Pod Operator Keda>'
+- kubectl logs -f "name-pod-keda-operator"
 
 ### 9 - Upload Message in SQS Queue
 
 for i in `seq 50`; do 
-  aws sqs send-message --queue-url '<Url Queue>' --message-body "XXXX" --region '<Region>' --no-cli-pager --output text
+  aws sqs send-message --queue-url "url-queue" --message-body "XXXX" --region "aws-region" --no-cli-pager --output text
 done
 
 ### 10 - Monitoring Pod Scale Up
@@ -50,7 +50,7 @@ done
 
 ### 11 - After Testing Success, Purge Queue
 
-- aws sqs purge-queue --queue-url '<Url Queue>'
+- aws sqs purge-queue --queue-url "url-queue"
 
 ### 12 - Monitoring Pod Scale Down
 
