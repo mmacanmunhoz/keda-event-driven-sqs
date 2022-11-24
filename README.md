@@ -64,21 +64,34 @@ kubectl logs -f "name-pod-keda-operator"
 
 ### 9 - Upload Message in SQS Queue
 
+```
 for i in `seq 50`; do 
   aws sqs send-message --queue-url "url-queue" --message-body "XXXX" --region "aws-region" --no-cli-pager --output text
 done
 
+```
+
 ### 10 - Monitoring Pod Scale Up
 
-- kubectl get pods -w
+```
+kubectl get pods -w
+
+```
 
 ### 11 - After Testing Success, Purge Queue
 
-- aws sqs purge-queue --queue-url "url-queue"
+```
+
+aws sqs purge-queue --queue-url "url-queue"
+
+```
 
 ### 12 - Monitoring Pod Scale Down
 
-- kubectl get pods -w
+```
+kubectl get pods -w
+
+```
 
 
 ## TERRAFORM
