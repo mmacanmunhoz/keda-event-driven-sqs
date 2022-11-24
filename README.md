@@ -6,37 +6,61 @@
 
 ### 1 - Update KubeConfig
 
-- aws eks update-kubeconfig --name "cluster-name" --region "aws-region"
+```
+aws eks update-kubeconfig --name "cluster-name" --region "aws-region"
+
+```
 
 ### 2 - Create Policy IAM For SQS (Add ARN Your Queue)
 
-- aws iam create-policy --policy-name "name-policy" --policy-document file://policy/sqs.json
+```
+aws iam create-policy --policy-name "name-policy" --policy-document file://policy/sqs.json
+
+```
 
 ### 3 - Create Namespace for KEDA
 
-- kubectl create namespace keda
+```
+kubectl create namespace keda
+
+```
 
 ### 4 - Create ServiceAccount for Operator Queda Access SQS
 
-- eksctl create iamserviceaccount --name keda-operator --namespace keda --cluster "cluster-name" --attach-policy-arn "arn-policy" --region "aws-region" --approve
+```
+eksctl create iamserviceaccount --name keda-operator --namespace keda --cluster "cluster-name" --attach-policy-arn "arn-policy" --region "aws-region" --approve
+
+```
 
 ### 5 - Deploy KEDA
 
-- helm repo add kedacore https://kedacore.github.io/charts
-- helm install keda kedacore/keda --namespace keda --set serviceAccount.create=false --set serviceAccount.name=keda-operator
+```
+helm repo add kedacore https://kedacore.github.io/charts
+helm install keda kedacore/keda --namespace keda --set serviceAccount.create=false --set serviceAccount.name=keda-operator
+```
 
 ### 6 - Change Info Manifest k8s and Apply (Files in Folder k8s)
 
-- kubectl apply -f deployment.yml
-- kubectl apply -f scaleobject.yml
+```
+kubectl apply -f deployment.yml
+kubectl apply -f scaleobject.yml
+
+```
 
 ### 7 - Monitoring Namespace
 
-- kubectl get pods -w
+```
+kubectl get pods -w
+
+```
 
 ### 8 - Monitoring Operator Keda
 
-- kubectl logs -f "name-pod-keda-operator"
+```
+
+kubectl logs -f "name-pod-keda-operator"
+
+```
 
 ### 9 - Upload Message in SQS Queue
 
